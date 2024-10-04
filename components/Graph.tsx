@@ -21,7 +21,7 @@ import { GraphData } from "@/lib/DataType"
 const chartConfig = {
   temperature: {
     label: "Temperature",
-    color: "hsl(var(--chart-1))",
+    color: "hsl(var(--chart-4))",
   },
   humidity: {
     label: "Humidity",
@@ -53,10 +53,10 @@ export default function Graph( { className, isFreezer, chartData }: { className:
 
   return (
     <Card className={ className }>
-      <CardHeader className="flex flex-col items-stretch space-y-0 border-b p-0 sm:flex-row">
+      <CardHeader className="flex flex-col items-stretch space-y-0 p-0 sm:flex-row">
         <div className="flex flex-1 flex-col justify-center gap-1 px-6 py-5 sm:py-6">
           <CardTitle>{ isFreezer ? "Freezer" : "Refrigerator" }</CardTitle>
-          <CardDescription>
+          <CardDescription className="text-white">
             Showing temperature and humidity data for the last 1 weeks
           </CardDescription>
         </div>
@@ -67,10 +67,10 @@ export default function Graph( { className, isFreezer, chartData }: { className:
               <button
                 key={chart}
                 data-active={activeChart === chart}
-                className="flex flex-1 flex-col justify-center gap-1 border-t px-6 py-4 text-left even:border-l data-[active=true]:bg-muted/50 sm:border-l sm:border-t-0 sm:px-8 sm:py-6"
+                className="flex flex-1 flex-col justify-center gap-1 border-t px-6 py-4 text-left  data-[active=true]:bg-muted/10 sm:border-t-0 sm:px-8 sm:py-6"
                 onClick={() => setActiveChart(chart)}
               >
-                <span className="text-xs text-muted-foreground">
+                <span className="text-xs text-white">
                   {chartConfig[chart].label}
                 </span>
                 <span className="text-lg font-bold leading-none sm:text-2xl">

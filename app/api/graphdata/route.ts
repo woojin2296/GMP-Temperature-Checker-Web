@@ -15,7 +15,7 @@ export async function GET(request: Request) {
       SELECT timestamp, refrigerator_temp, refrigerator_humid, freezer_temp, freezer_humid 
       FROM sensor_data 
       ORDER BY timestamp DESC 
-      LIMIT 30
+      LIMIT 100
     `;
 
     // 쿼리 실행
