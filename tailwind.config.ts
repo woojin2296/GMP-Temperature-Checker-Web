@@ -49,7 +49,10 @@ const config: Config = {
   				'3': 'hsl(var(--chart-3))',
   				'4': 'hsl(var(--chart-4))',
   				'5': 'hsl(var(--chart-5))'
-  			}
+  			},
+			customDark: '#1c2c3e',  // rgb(28, 44, 62)
+			customDarkBg: '#17202c',  // rgb(23, 32, 44)
+			customBlue: '#464ef7',   // rgb(70, 78, 247)
   		},
   		borderRadius: {
   			lg: 'var(--radius)',

@@ -16,7 +16,7 @@ export function DateRangePicker({
   setDate,
 }: React.HTMLAttributes<HTMLDivElement> & {
   date: DateRange | undefined,
-  setDate: (date: DateRange | undefined) => void
+  setDate: any
 }) {
 
   return (

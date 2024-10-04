@@ -17,15 +17,7 @@ export default function Data() {
   const [filteredData, setFilteredData] = useState<ThermoHygrometer[]>([]);
 
   useEffect(() => {
-    if (dateRange?.from && dateRange.to) {
-      // 날짜 범위가 설정되었을 때 데이터 필터링
-      const from = dateRange.from;
-      const to = dateRange.to;
-      fetchData({from, to});
-
-    } else {
-      setFilteredData([]);
-    }
+    console.log("data changed!")
   }, [dateRange]);
 
   function fetchData({ from, to }: { from: Date; to: Date }) {
