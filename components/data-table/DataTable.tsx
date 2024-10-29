@@ -17,6 +17,7 @@ import {
   TableRow,
 } from "@/components/ui/table"
 import { DataTablePagination } from "./DataTablePagination"
+import { Card } from "../ui/card"
 
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[]
@@ -36,14 +37,14 @@ export function DataTable<TData, TValue>({
   })
 
   return (
-    <div>
-      <Table className="border-b">
+    <Card className="bg-customDark p-4 h-[calc(100vh-10.5rem)]">
+      <Table className="text-white border-b">
         <TableHeader>
           {table.getHeaderGroups().map((headerGroup) => (
             <TableRow key={headerGroup.id}>
               {headerGroup.headers.map((header) => {
                 return (
-                  <TableHead key={header.id} className="text-center">
+                  <TableHead key={header.id} className="text-white text-center">
                     {header.isPlaceholder
                       ? null
                       : flexRender(
@@ -56,7 +57,7 @@ export function DataTable<TData, TValue>({
             </TableRow>
           ))}
         </TableHeader>
-        <TableBody>
+        <TableBody className="text-white">
           {table.getRowModel().rows?.length ? (
             table.getRowModel().rows.map((row) => (
               <TableRow
@@ -81,6 +82,6 @@ export function DataTable<TData, TValue>({
       </Table>
       
       <DataTablePagination table={table} />
-    </div>
+    </Card>
   )
 }

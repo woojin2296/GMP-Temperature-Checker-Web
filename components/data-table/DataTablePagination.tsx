@@ -23,12 +23,12 @@ export function DataTablePagination<TData>({
 	table,
 }: DataTablePaginationProps<TData>) {
 	return (
-		<div className="flex items-center justify-between py-4">
-			<div className="flex items-center space-x-6 lg:space-x-8">
+		<div className="flex items-center justify-between py-4 text-white">
+			<div className="flex items-center space-x-6 lg:space-x-8 w-1/6">
 				
 			</div>
 
-            <div className="flex items-center space-x-2">
+            <div className="flex items-center space-x-2 text-black">
                 <Button
                     variant="outline"
                     className="hidden h-8 w-8 p-0 lg:flex"
@@ -47,7 +47,7 @@ export function DataTablePagination<TData>({
                     <span className="sr-only">Go to previous page</span>
                     <ChevronLeftIcon className="h-4 w-4" />
                 </Button>
-                <div className="flex w-[100px] items-center justify-center text-sm font-medium">
+                <div className="flex w-[100px] items-center justify-center text-sm font-medium text-white">
                     Page {table.getState().pagination.pageIndex + 1} of{" "}
                     {table.getPageCount()}
                 </div>
@@ -71,7 +71,7 @@ export function DataTablePagination<TData>({
                 </Button>
             </div>
 
-            <div className="flex items-center space-x-2">
+            <div className="flex items-center space-x-2 w-1/6 justify-end">
                 <p className="text-sm font-medium">Rows per page</p>
                 <Select
                     value={`${table.getState().pagination.pageSize}`}

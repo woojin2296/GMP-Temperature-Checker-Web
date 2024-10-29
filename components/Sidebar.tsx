@@ -24,14 +24,6 @@ export default function Sidebar() {
             <Link href="/data" className="flex text-white items-center gap-3 rounded-lg px-3 py-5 text-muted-foreground transition-all hover:text-blue-300">
                 <Database className="h-4 w-4" /> Data
             </Link>
-
-            <Link href="/setting" className="flex text-white items-center gap-3 rounded-lg px-3 py-5 text-muted-foreground transition-all hover:text-blue-300">
-                <Settings className="h-4 w-4" /> Setting
-            </Link>
-
-            <Link href="/graph" className="flex text-white items-center gap-3 rounded-lg px-3 py-5 text-muted-foreground transition-all hover:text-blue-300">
-                <Settings className="h-4 w-4" /> Graph
-            </Link>
         </nav>
 
     </div>
