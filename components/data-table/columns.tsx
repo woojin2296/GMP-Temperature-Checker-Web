@@ -1,26 +1,26 @@
 "use client"
 
 import { ColumnDef } from "@tanstack/react-table"
-import { ThermoHygrometer } from "@/api/DataType"
+import { ThermoHygrometer } from "@/lib/DataType"
 export const columns: ColumnDef<ThermoHygrometer>[] = [
   {
     accessorKey: "timestamp",
     header: "Timestamp",
   },
   {
-    accessorKey: "refrigerator_temp",
+    accessorKey: "refrigeratorTemp",
     header: "Refrigerator Temperature",
   },
   {
-    accessorKey: "refrigerator_humid",
+    accessorKey: "refrigeratorHumid",
     header: "Refrigerator Humidity",
   },
   {
-    accessorKey: "freezer_temp",
+    accessorKey: "freezerTemp",
     header: "Freezer Temperature",
   },
   {
-    accessorKey: "freezer_humid",
+    accessorKey: "freezerHumid",
     header: "Freezer Humidity",
   },
 ]

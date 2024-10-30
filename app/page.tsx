@@ -1,162 +1,77 @@
 "use client";
 
-import Graph from "@/components/Graph";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { extractFreezerData, extractRefrigeratorData } from "@/service/DataService";
 import { useEffect, useState } from "react";
 import { ThermometerSnowflake, Droplets } from 'lucide-react';
+import { DashboardCardBig } from "@/components/DashboardCardBig";
+import { DashboardCardSmall } from "@/components/DashboardCardSmall";
 
 export default function Home() {
-  const [data, setData] = useState<any>([]);
+  const [data, setData] = useState<any>(null);
 
+  useEffect(() => {
+    fetchData();
+    const interval = setInterval(() => {
+      fetchData();
+    }, 5000);
+    return () => clearInterval(interval);
+  }, []);
+
+  const fetchData = () => {
+      fetch(process.env.NEXT_PUBLIC_API_URL + "/live-data")
+      .then((response) => response.text())
+      .then((result) => setData(JSON.parse(result)))
+      .catch((error) => console.error(error));
+      console.log("Data fetched");
+  }
 
   return (
     <div className="bg-customDarkBg h-[calc(100vh-3.5rem)] p-2">
       <div className="flex h-2/6">
-        <Card className="flex flex-col bg-customDark w-1/2 m-2">
-          <CardHeader>
-            <CardTitle className="text-white">Freezer</CardTitle>
-            <CardDescription className="text-white">Current temperature and humidity of freezer.</CardDescription>
-          </CardHeader>
-          <CardContent className="flex felx-row flex-grow">
-            <div className="flex flex-grow justify-center items-center text-6xl text-white">
-              <ThermometerSnowflake className="h-12 w-12 mx-4"/> 25°C
-            </div>
-            <div className="flex flex-grow justify-center items-center text-6xl text-white">
-              <Droplets className="h-12 w-12 mx-4"/> 50%
-            </div>
-          </CardContent>
-        </Card>
-        <Card className="flex flex-col bg-customDark w-1/2 m-2">
-          <CardHeader className="text-white">
-            <CardTitle>Refrigerator</CardTitle>
-            <CardDescription className="text-white">Current temperature and humidity of refrigerator.</CardDescription>
-          </CardHeader>
-          <CardContent className="flex felx-row flex-grow">
-            <div className="flex flex-grow justify-center items-center text-6xl text-white">
-              <ThermometerSnowflake className="h-12 w-12 mx-4"/> 25°C
-            </div>
-            <div className="flex flex-grow justify-center items-center text-6xl text-white">
-              <Droplets className="h-12 w-12 mx-4"/> 50%
-            </div>
-          </CardContent>
-        </Card>
+        <DashboardCardBig 
+              title="Freezer" 
+              description="Current temperature and humidity of freezer."
+              temperature={ data == null ? 0 : data.current.freezerTemp}
+              humidity={ data == null ? 0 : data.current.freezerHumid} />
+        <DashboardCardBig 
+              title="Refrigerator" 
+              description="Current temperature and humidity of refrigerator."
+              temperature={ data == null ? 0 : data.current.refrigeratorTemp}
+              humidity={ data == null ? 0 : data.current.refrigeratorHumid} />
       </div>
       <div className="flex h-2/6">
-        <Card className="flex flex-col bg-customDark w-1/4 m-2">
-          <CardHeader className="text-white">
-            <CardTitle>One hour</CardTitle>
-            <CardDescription className="text-white">Data from one hour ago</CardDescription>
-          </CardHeader>
-          <CardContent className="flex felx-row flex-grow">
-          <div className="flex flex-grow justify-center items-center text-4xl text-white">
-              25°C
-            </div>
-            <div className="flex flex-grow justify-center items-center text-4xl text-white">
-              50%
-            </div>
-          </CardContent>
-        </Card>
-        <Card className="flex flex-col bg-customDark w-1/4 m-2">
-          <CardHeader className="text-white">
-            <CardTitle>Difference</CardTitle>
-            <CardDescription className="text-white">Difference from previous data</CardDescription>
-          </CardHeader>
-          <CardContent className="flex felx-row flex-grow">
-          <div className="flex flex-grow justify-center items-center text-4xl text-white">
-              -5°C
-            </div>
-            <div className="flex flex-grow justify-center items-center text-4xl text-white">
-              -2%
-            </div>
-          </CardContent>
-        </Card>
-        <Card className="flex flex-col bg-customDark w-1/4 m-2">
-          <CardHeader className="text-white">
-            <CardTitle>One hour</CardTitle>
-            <CardDescription className="text-white">Data from one hour ago</CardDescription>
-          </CardHeader>
-          <CardContent className="flex felx-row flex-grow">
-          <div className="flex flex-grow justify-center items-center text-4xl text-white">
-              25°C
-            </div>
-            <div className="flex flex-grow justify-center items-center text-4xl text-white">
-              50%
-            </div>
-          </CardContent>
-        </Card>
-        <Card className="flex flex-col bg-customDark w-1/4 m-2">
-          <CardHeader className="text-white">
-            <CardTitle>Difference</CardTitle>
-            <CardDescription className="text-white">Difference from previous data</CardDescription>
-          </CardHeader>
-          <CardContent className="flex felx-row flex-grow">
-          <div className="flex flex-grow justify-center items-center text-4xl text-white">
-              -5°C
-            </div>
-            <div className="flex flex-grow justify-center items-center text-4xl text-white">
-              -2%
-            </div>
-          </CardContent>
-        </Card>
+        <DashboardCardSmall 
+              title="One hour" 
+              description="Data from one hour ago."
+              temperature={ data == null ? 0 : data.pastOneHour.freezerTemp}
+              humidity={ data == null ? 0 : data.pastOneHour.freezerHumid} />
+        <DashboardCardSmall 
+              title="Difference" 
+              description="Difference from previous data."
+              temperature={ data == null ? 0 : data.current.freezerTemp - data.pastOneHour.freezerTemp}
+              humidity={ data == null ? 0 : data.current.freezerHumid - data.pastOneHour.freezerHumid} />
+        <DashboardCardSmall 
+              title="One hour" 
+              description="Data from one hour ago."
+              temperature={ data == null ? 0 : data.pastOneHour.refrigeratorTemp}
+              humidity={ data == null ? 0 : data.pastOneHour.refrigeratorHumid} />
+        <DashboardCardSmall 
+              title="Difference" 
+              description="Difference from previous data."
+              temperature={ data == null ? 0 : data.current.refrigeratorTemp - data.pastOneHour.refrigeratorTemp}
+              humidity={ data == null ? 0 : data.current.refrigeratorHumid - data.pastOneHour.refrigeratorHumid} />
       </div>
       <div className="flex h-2/6">
-        <Card className="flex flex-col bg-customDark w-1/4 m-2">
-          <CardHeader className="text-white">
-            <CardTitle>Average(24 hour)</CardTitle>
-            <CardDescription className="text-white">Average temperature over the past 24 hours</CardDescription>
-          </CardHeader>
-          <CardContent className="flex felx-row flex-grow">
-          <div className="flex flex-grow justify-center items-center text-4xl text-white">
-              25°C
-            </div>
-            <div className="flex flex-grow justify-center items-center text-4xl text-white">
-              50%
-            </div>
-          </CardContent>
-        </Card>
-        <Card className="flex flex-col bg-customDark w-1/4 m-2">
-          <CardHeader className="text-white">
-            <CardTitle>Average(1 week)</CardTitle>
-            <CardDescription className="text-white">Average temperature over the past 1 week</CardDescription>
-          </CardHeader>
-          <CardContent className="flex felx-row flex-grow">
-          <div className="flex flex-grow justify-center items-center text-4xl text-white">
-              25°C
-            </div>
-            <div className="flex flex-grow justify-center items-center text-4xl text-white">
-              50%
-            </div>
-          </CardContent>
-        </Card>
-        <Card className="flex flex-col bg-customDark w-1/4 m-2">
-          <CardHeader className="text-white">
-            <CardTitle>Average(24 hour)</CardTitle>
-            <CardDescription className="text-white">Average temperature over the past 24 hours</CardDescription>
-          </CardHeader>
-          <CardContent className="flex felx-row flex-grow">
-          <div className="flex flex-grow justify-center items-center text-4xl text-white">
-              25°C
-            </div>
-            <div className="flex flex-grow justify-center items-center text-4xl text-white">
-              50%
-            </div>
-          </CardContent>
-        </Card>
-        <Card className="flex flex-col bg-customDark w-1/4 m-2">
-          <CardHeader className="text-white">
-            <CardTitle>Average(1 week)</CardTitle>
-            <CardDescription className="text-white">Average temperature over the past 1 week</CardDescription>
-          </CardHeader>
-          <CardContent className="flex felx-row flex-grow">
-          <div className="flex flex-grow justify-center items-center text-4xl text-white">
-              25°C
-            </div>
-            <div className="flex flex-grow justify-center items-center text-4xl text-white">
-              50%
-            </div>
-          </CardContent>
-        </Card>
+        <DashboardCardBig 
+              title="Average(24 hour)" 
+              description="Average temperature over the past 24 hours."
+              temperature={ data == null ? 0 : data.pastOneDayAverage.freezerTemp}
+              humidity={ data == null ? 0 : data.pastOneDayAverage.freezerHumid} />
+        <DashboardCardBig 
+              title="Average(24 hour)" 
+              description="Average temperature over the past 24 hours."
+              temperature={ data == null ? 0 : data.pastOneDayAverage.refrigeratorTemp}
+              humidity={ data == null ? 0 : data.pastOneDayAverage.refrigeratorHumid} />
       </div>
     </div>
   );
