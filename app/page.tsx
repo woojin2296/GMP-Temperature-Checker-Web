@@ -1,8 +1,6 @@
 "use client";
 
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { useEffect, useState } from "react";
-import { ThermometerSnowflake, Droplets } from 'lucide-react';
 import { DashboardCardBig } from "@/components/DashboardCardBig";
 import { DashboardCardSmall } from "@/components/DashboardCardSmall";
 
