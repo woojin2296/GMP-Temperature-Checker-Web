@@ -18,7 +18,10 @@ export default function Home() {
   const fetchData = () => {
       fetch(process.env.NEXT_PUBLIC_API_URL + "/live-data")
       .then((response) => response.text())
-      .then((result) => setData(JSON.parse(result)))
+      .then((result) => {
+          setData(JSON.parse(result))
+          console.log(JSON.parse(result));
+        })
       .catch((error) => console.error(error));
       console.log("Data fetched");
   }

@@ -25,6 +25,7 @@ export default function Data() {
     .then((response) => response.text())
     .then((result) => {
       setData(JSON.parse(result).pastData)
+      console.log(JSON.parse(result).pastData);
     })
     .catch((error) => console.error(error));
   }
